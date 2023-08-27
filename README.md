@@ -1,5 +1,23 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## firebase のセットアップ
+### npm install
+```zsh
+# ライブラリ全般をinstall
+npm install 
+
+# emulator立ち上げるためのtoolのinstall
+npm install -g firebase-tools
+```
+
+### emulatorのインストール
+```zsh
+firebase init
+```
+
+### .env.localファイルを設置
+なんらかの形で渡します
+
 ## Getting Started
 
 開発用サーバーを立ち上げる:
