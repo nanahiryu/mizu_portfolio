@@ -2,21 +2,24 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+開発用サーバーを立ち上げる:
 
-```bash
+```zsh
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[http://localhost:3000](http://localhost:3000)をブラウザで開くとページの確認ができます
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+エミュレータ(開発の時に使うfirebase auth, firestoreなど)を立ち上げる:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```zsh
+npm run firebase
+```
+[http://localhost:4000](http://localhost:4000)をブラウザで開くとエミュレータのGUI(ページ)が開けます
+
+サーバを止める:
+
+サーバをたてたターミナルで `ctrl + C`
 
 ## Learn More
 
