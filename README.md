@@ -1,22 +1,43 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## firebase のセットアップ
+### npm install
+```zsh
+# ライブラリ全般をinstall
+npm install 
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+# emulator立ち上げるためのtoolのinstall
+npm install -g firebase-tools
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### emulatorのインストール
+```zsh
+firebase init
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### .env.localファイルを設置
+なんらかの形で渡します
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Getting Started
+
+開発用サーバーを立ち上げる:
+
+```zsh
+npm run dev
+```
+
+[http://localhost:3000](http://localhost:3000)をブラウザで開くとページの確認ができます
+
+エミュレータ(開発の時に使うfirebase auth, firestoreなど)を立ち上げる:
+
+```zsh
+npm run firebase
+```
+[http://localhost:4000](http://localhost:4000)をブラウザで開くとエミュレータのGUI(ページ)が開けます
+
+サーバを止める:
+
+サーバをたてたターミナルで `ctrl + C`
 
 ## Learn More
 
