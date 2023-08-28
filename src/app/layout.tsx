@@ -1,4 +1,5 @@
-import "@/styles/globals.css";
+import Header from "@/components/header";
+import "@/styles/globals.scss";
 import type { Metadata } from "next";
 import { Amiko } from "next/font/google";
 
@@ -16,7 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={amiko.className}>{children}</body>
+      <body className={amiko.className}>
+        <Header />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
