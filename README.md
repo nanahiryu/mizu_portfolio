@@ -39,6 +39,16 @@ npm run firebase
 
 サーバをたてたターミナルで `ctrl + C`
 
+## 構成について
+### css
+* CSS Modules & Sass
+* 学習コストを下げるため, 一般的なcssを知っていればキャッチアップしやすいため
+* globalなstyleのみsrc/stylesに配置, それ以外(pageとcomponents)は該当tsxと同階層に置く
+
+### 状態管理
+* jotai
+* react useStateと似た使用感で使える, 
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
