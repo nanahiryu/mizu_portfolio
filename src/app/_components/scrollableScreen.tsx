@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./scrollableScreen.module.scss";
 import { set } from "firebase/database";
+import Image from "next/image";
 
 interface ScrollableScreenProps {
   index: number;
@@ -50,14 +51,70 @@ export const ScrollableScreen = (props: ScrollableScreenProps) => {
           className={styles.scrollable_screen_wrapper}
           style={{ width: screenWrapperWidth }}
         >
-          <div className={styles.scrollable_screen}>1</div>
-          <div className={styles.scrollable_screen}>2</div>
-          <div className={styles.scrollable_screen}>3</div>
-          <div className={styles.scrollable_screen}>4</div>
-          <div className={styles.scrollable_screen}>5</div>
-          <div className={styles.scrollable_screen}>6</div>
-          <div className={styles.scrollable_screen}>7</div>
-          <div className={styles.scrollable_screen}>8</div>
+          <div className={styles.scrollable_screen}>
+            <Image
+              src="/scrollable/cat1.jpeg"
+              alt=""
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className={styles.scrollable_screen}>
+            <Image
+              src="/scrollable/cat2.jpeg"
+              alt=""
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className={styles.scrollable_screen}>
+            <Image
+              src="/scrollable/cat3.jpeg"
+              alt=""
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className={styles.scrollable_screen}>
+            <Image
+              src="/scrollable/cat4.jpeg"
+              alt=""
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className={styles.scrollable_screen}>
+            <Image
+              src="/scrollable/cat5.jpeg"
+              alt=""
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className={styles.scrollable_screen}>
+            <Image
+              src="/scrollable/cat6.jpeg"
+              alt=""
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className={styles.scrollable_screen}>
+            <Image
+              src="/scrollable/cat7.jpeg"
+              alt=""
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className={styles.scrollable_screen}>
+            <Image
+              src="/scrollable/cat8.jpeg"
+              alt=""
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
         </div>
       </div>
     </div>
