@@ -15,15 +15,24 @@
     font-weight: 400;
     line-height: normal;
   }
-  .scrollable_screen_wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 4px;
-    width: 100%;
-    .scrollable_screen {
-      width: 250px;
-      height: 250px;
-      background-color: $bg_gray;
+  .scrollable_window {
+    width: 1012px;
+    position: relative;
+    overflow: auto;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollable_screen_wrapper {
+      display: flex;
+      gap: 4px;
+      width: 200vw;
+      .scrollable_screen {
+        position: relative;
+        width: 250px;
+        height: 250px;
+        background-color: $bg_gray;
+      }
     }
   }
 }
