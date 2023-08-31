@@ -9,8 +9,8 @@ const Home = () => {
         <Image
           src="/mainScreen/main.jpeg"
           alt=""
-          layout="fill"
-          objectFit="cover"
+          fill
+          className={styles.main_image}
         />
       </div>
       <ScrollableScreen index={1} />

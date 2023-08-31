@@ -29,6 +29,9 @@
         justify-content: center;
         background-color: $bg_gray;
         position: relative;
+        .scrollable_image {
+          object-fit: cover;
+        }
       }
     }
   }
