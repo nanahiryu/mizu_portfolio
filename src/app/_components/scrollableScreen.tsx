@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import styles from "./scrollableScreen.module.scss";
-import { set } from "firebase/database";
 import Image from "next/image";
 
 interface ScrollableScreenProps {
@@ -11,24 +10,30 @@ interface ScrollableScreenProps {
 
 export const ScrollableScreen = (props: ScrollableScreenProps) => {
   const { index } = props;
-  const screenRef = useRef<HTMLDivElement>(null);
+  const screenWindowRef = useRef<HTMLDivElement>(null);
   const [scrollLeftIndex, setScrollLeftIndex] = useState(0);
+  const screenSize = 250;
+  const screenGap = 4;
+  const visibleScreenItemNum = 4;
   const screenItemNum = 8;
-  const screenWrapperWidth = 250 * screenItemNum + 4 * (screenItemNum - 1);
-  const scrollWidth = 250 + 4;
+  const screenWindowWidth =
+    screenSize * visibleScreenItemNum + screenGap * (visibleScreenItemNum - 1);
+  const screenWrapperWidth =
+    screenSize * screenItemNum + screenGap * (screenItemNum - 1);
+  const scrollWidth = screenSize + screenGap;
 
   useEffect(() => {
-    if (!screenRef.current) return;
+    if (!screenWindowRef.current) return;
 
-    screenRef.current.onwheel = (e) => {
-      if (!screenRef.current) return;
+    screenWindowRef.current.onwheel = (e) => {
+      if (!screenWindowRef.current) return;
       e.preventDefault();
 
       let delta = e.deltaY / Math.abs(e.deltaY);
       if (delta > 0) {
         setScrollLeftIndex((prev) => {
           console.log(prev);
-          if (prev === screenItemNum - 4) return prev;
+          if (prev === screenItemNum - visibleScreenItemNum) return prev;
           return prev + 1;
         });
       } else {
@@ -39,82 +44,44 @@ export const ScrollableScreen = (props: ScrollableScreenProps) => {
         });
       }
 
-      screenRef.current!.scrollLeft = scrollLeftIndex * scrollWidth;
+      screenWindowRef.current!.scrollLeft = scrollLeftIndex * scrollWidth;
     };
   }, [scrollLeftIndex, scrollWidth]);
+
+  const indexArray: number[] = Array.from(
+    { length: screenItemNum },
+    (_, index) => index + 1
+  );
 
   return (
     <div className={styles.scrollable_screen_field}>
       <p className={styles.scrollable_screen_index}>{index}</p>
-      <div className={styles.scrollable_window} ref={screenRef}>
+      <div
+        className={styles.scrollable_window}
+        style={{ width: screenWindowWidth }}
+        ref={screenWindowRef}
+      >
         <div
           className={styles.scrollable_screen_wrapper}
-          style={{ width: screenWrapperWidth }}
+          style={{ width: screenWrapperWidth, gap: screenGap }}
         >
-          <div className={styles.scrollable_screen}>
-            <Image
-              src="/scrollable/cat1.jpeg"
-              alt=""
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-          <div className={styles.scrollable_screen}>
-            <Image
-              src="/scrollable/cat2.jpeg"
-              alt=""
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-          <div className={styles.scrollable_screen}>
-            <Image
-              src="/scrollable/cat3.jpeg"
-              alt=""
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-          <div className={styles.scrollable_screen}>
-            <Image
-              src="/scrollable/cat4.jpeg"
-              alt=""
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-          <div className={styles.scrollable_screen}>
-            <Image
-              src="/scrollable/cat5.jpeg"
-              alt=""
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-          <div className={styles.scrollable_screen}>
-            <Image
-              src="/scrollable/cat6.jpeg"
-              alt=""
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-          <div className={styles.scrollable_screen}>
-            <Image
-              src="/scrollable/cat7.jpeg"
-              alt=""
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-          <div className={styles.scrollable_screen}>
-            <Image
-              src="/scrollable/cat8.jpeg"
-              alt=""
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
+          {indexArray.map((i) => (
+            <div
+              key={i}
+              className={styles.scrollable_screen}
+              style={{
+                width: screenSize,
+                height: screenSize,
+              }}
+            >
+              <Image
+                src={`/scrollable/cat${i}.jpeg`}
+                alt=""
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>

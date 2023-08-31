@@ -16,8 +16,6 @@
     line-height: normal;
   }
   .scrollable_window {
-    width: 1012px;
-    position: relative;
     overflow: auto;
     scroll-behavior: smooth;
     &::-webkit-scrollbar {
@@ -25,13 +23,12 @@
     }
     .scrollable_screen_wrapper {
       display: flex;
-      gap: 4px;
-      width: 200vw;
       .scrollable_screen {
-        position: relative;
-        width: 250px;
-        height: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background-color: $bg_gray;
+        position: relative;
       }
     }
   }
