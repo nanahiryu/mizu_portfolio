@@ -13,8 +13,12 @@ const Home = () => {
           className={styles.main_image}
         />
       </div>
-      <ScrollableScreen index={1} />
-      <ScrollableScreen index={2} visibleScreenItemNum={6} />
+      <ScrollableScreen
+        title="Sep"
+        visibleScreenItemNum={4}
+        screenSizePx={250}
+      />
+      <ScrollableScreen title="Oct" visibleScreenItemNum={6} />
     </div>
   );
 };

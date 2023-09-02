@@ -5,16 +5,26 @@ import styles from "./scrollableScreen.module.scss";
 import Image from "next/image";
 
 interface ScrollableScreenProps {
-  index: number;
-  visibleScreenItemNum?: number;
+  title: string;
+  visibleScreenItemNum: number;
+
+  // screenSizePxを指定すると、screen width/height を固定できる
+  // 指定しない場合は、画面サイズを可変にし, 画面サイズに合わせて画像を表示する
+  screenSizePx?: number;
 }
 
 export const ScrollableScreen = (props: ScrollableScreenProps) => {
-  const { index, visibleScreenItemNum = 4 } = props;
+  const { title, visibleScreenItemNum, screenSizePx } = props;
   const screenWindowRef = useRef<HTMLDivElement>(null);
   const [scrollLeftIndex, setScrollLeftIndex] = useState(0);
-  const screenSize = 250;
+
   const screenGap = 4;
+
+  const screenSize = screenSizePx
+    ? screenSizePx
+    : (document.body.clientWidth - screenGap * (visibleScreenItemNum - 1)) /
+      visibleScreenItemNum;
+
   const screenItemNum = 8;
   const screenWindowWidth =
     screenSize * visibleScreenItemNum + screenGap * (visibleScreenItemNum - 1);
@@ -55,7 +65,7 @@ export const ScrollableScreen = (props: ScrollableScreenProps) => {
 
   return (
     <div className={styles.scrollable_screen_field}>
-      <p className={styles.scrollable_screen_index}>{index}</p>
+      <p className={styles.scrollable_screen_title}>{title}</p>
       <div
         className={styles.scrollable_window}
         ref={screenWindowRef}
