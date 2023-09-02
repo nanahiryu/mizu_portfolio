@@ -1,0 +1,27 @@
+@import "@/styles/colors.scss";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 40px;
+  .main_screen_field {
+    width: 90%;
+    height: 400px;
+    background-color: $bg_gray;
+    border-radius: 8px;
+    border: $border_gray dashed 3px;
+  }
+  .scrollable_field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 250px;
+    background-color: $bg_gray;
+
+    border-radius: 8px;
+    border: $border_gray dashed 3px;
+  }
+}
