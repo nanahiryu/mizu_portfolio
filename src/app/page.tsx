@@ -14,7 +14,7 @@ const Home = () => {
         />
       </div>
       <ScrollableScreen index={1} />
-      <ScrollableScreen index={2} />
+      <ScrollableScreen index={2} visibleScreenItemNum={6} />
     </div>
   );
 };

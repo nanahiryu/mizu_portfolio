@@ -24,9 +24,7 @@
     .scrollable_screen_wrapper {
       display: flex;
       .scrollable_screen {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position: relative;
         background-color: $bg_gray;
         position: relative;
         .scrollable_image {

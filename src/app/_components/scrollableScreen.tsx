@@ -6,15 +6,15 @@ import Image from "next/image";
 
 interface ScrollableScreenProps {
   index: number;
+  visibleScreenItemNum?: number;
 }
 
 export const ScrollableScreen = (props: ScrollableScreenProps) => {
-  const { index } = props;
+  const { index, visibleScreenItemNum = 4 } = props;
   const screenWindowRef = useRef<HTMLDivElement>(null);
   const [scrollLeftIndex, setScrollLeftIndex] = useState(0);
   const screenSize = 250;
   const screenGap = 4;
-  const visibleScreenItemNum = 4;
   const screenItemNum = 8;
   const screenWindowWidth =
     screenSize * visibleScreenItemNum + screenGap * (visibleScreenItemNum - 1);
@@ -58,27 +58,26 @@ export const ScrollableScreen = (props: ScrollableScreenProps) => {
       <p className={styles.scrollable_screen_index}>{index}</p>
       <div
         className={styles.scrollable_window}
-        style={{ width: screenWindowWidth }}
         ref={screenWindowRef}
+        style={{
+          width: screenWindowWidth,
+        }}
       >
         <div
           className={styles.scrollable_screen_wrapper}
           style={{ width: screenWrapperWidth, gap: screenGap }}
         >
-          {indexArray.map((i) => (
+          {indexArray.map((index) => (
             <div
-              key={i}
+              key={index}
               className={styles.scrollable_screen}
-              style={{
-                width: screenSize,
-                height: screenSize,
-              }}
+              style={{ width: screenSize, height: screenSize }}
             >
               <Image
-                src={`/scrollable/cat${i}.jpeg`}
+                src={`/scrollable/cat${index}.jpeg`}
                 alt=""
-                fill
-                className={styles.scrollable_image}
+                layout="fill"
+                objectFit="cover"
               />
             </div>
           ))}
