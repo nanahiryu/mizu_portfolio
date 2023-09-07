@@ -1,4 +1,4 @@
-import Header from "@/components/header";
+import Header from "@/app/portfolio/_components/header";
 
 export default function PortfolioLayout({
   children,

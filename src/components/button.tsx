@@ -4,21 +4,28 @@ import styles from "./button.module.scss";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
+  additionalClassName?: string;
 }
 
 export const PrimaryButton = (props: ButtonProps) => {
-  const { children, ...rest } = props;
+  const { children, additionalClassName, ...rest } = props;
   return (
-    <button className={styles.primary_button} {...rest}>
+    <button
+      className={`${styles.primary_button} ${additionalClassName}`}
+      {...rest}
+    >
       {children}
     </button>
   );
 };
 
 export const SecondaryButton = (props: ButtonProps) => {
-  const { children, ...rest } = props;
+  const { children, additionalClassName, ...rest } = props;
   return (
-    <button className={styles.secondary_button} {...rest}>
+    <button
+      className={`${styles.secondary_button} ${additionalClassName}`}
+      {...rest}
+    >
       {children}
     </button>
   );
