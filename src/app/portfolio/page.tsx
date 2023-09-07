@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import styles from "./page.module.scss";
-import { ScrollableScreen } from "./_components/scrollableScreen";
 import { useEffect, useState } from "react";
-import { PhotoEvent } from "@/types/photoEvent";
+
+import { ScrollableScreen } from "./_components/scrollableScreen";
+import styles from "./page.module.scss";
+
 import { fetchPhotoEvent } from "@/function/photoEvent";
 import { fetchTopImageDetail } from "@/function/topImage";
-import { set } from "firebase/database";
+import { PhotoEvent } from "@/types/photoEvent";
 import { TopImage } from "@/types/topImage";
 
 const Home = () => {
