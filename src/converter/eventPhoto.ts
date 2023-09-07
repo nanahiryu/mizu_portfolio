@@ -1,9 +1,10 @@
-import { EventPhoto } from "@/types/eventPhoto";
 import {
   DocumentData,
   FirestoreDataConverter,
   QueryDocumentSnapshot,
 } from "firebase/firestore";
+
+import { EventPhoto } from "@/types/eventPhoto";
 
 export const eventPhotoConverter: FirestoreDataConverter<EventPhoto> = {
   toFirestore: (eventPhoto: EventPhoto): DocumentData => {
@@ -18,6 +19,7 @@ export const eventPhotoConverter: FirestoreDataConverter<EventPhoto> = {
       title: (data.title as string) ?? "",
       description: (data.description as string) ?? "",
       imageUrl: (data.imageUrl as string) ?? "",
+      order: (data.order as number) ?? 0,
     };
   },
 };

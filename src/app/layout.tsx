@@ -1,7 +1,10 @@
-import Header from "@/components/header";
+import "@/styles/reset.scss";
 import "@/styles/globals.scss";
-import type { Metadata } from "next";
 import { Amiko } from "next/font/google";
+
+import type { Metadata } from "next";
+
+import Header from "@/components/header";
 
 const amiko = Amiko({ weight: "400", subsets: ["latin"] });
 

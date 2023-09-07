@@ -1,0 +1,23 @@
+@import "@/styles/colors.scss";
+
+.input {
+  width: 400px;
+  font-size: large;
+  font-weight: normal;
+  border: 1px solid $border_gray;
+  border-radius: 8px;
+  padding: 4px;
+  outline: none;
+}
+
+.textarea {
+  width: 400px;
+  height: 120px;
+  font-size: large;
+  font-weight: normal;
+  border: 1px solid $border_gray;
+
+  border-radius: 8px;
+  padding: 4px;
+  outline: none;
+}

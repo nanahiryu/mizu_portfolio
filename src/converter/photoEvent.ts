@@ -1,9 +1,10 @@
-import { PhotoEvent } from "./../types/photoEvent";
 import {
   DocumentData,
   FirestoreDataConverter,
   QueryDocumentSnapshot,
 } from "firebase/firestore";
+
+import { PhotoEvent } from "./../types/photoEvent";
 
 export const photoEventConverter: FirestoreDataConverter<PhotoEvent> = {
   toFirestore: (photoEvent: PhotoEvent): DocumentData => {

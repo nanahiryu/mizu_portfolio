@@ -3,4 +3,5 @@ export interface EventPhoto {
   title: string;
   description: string;
   imageUrl: string;
+  order: number;
 }

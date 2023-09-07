@@ -1,11 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import styles from "./scrollableScreen.module.scss";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+
+import styles from "./scrollableScreen.module.scss";
+
+import { fetchEventPhoto } from "@/function/eventPhoto";
+import { EventPhoto } from "@/types/eventPhoto";
+import { PhotoEvent } from "@/types/photoEvent";
 
 interface ScrollableScreenProps {
-  title: string;
+  photoEvent: PhotoEvent;
   visibleScreenItemNum: number;
 
   // screenSizePxを指定すると、screen width/height を固定できる
@@ -14,9 +19,10 @@ interface ScrollableScreenProps {
 }
 
 export const ScrollableScreen = (props: ScrollableScreenProps) => {
-  const { title, visibleScreenItemNum, screenSizePx } = props;
+  const { photoEvent, visibleScreenItemNum, screenSizePx } = props;
   const screenWindowRef = useRef<HTMLDivElement>(null);
   const [scrollLeftIndex, setScrollLeftIndex] = useState(0);
+  const [eventPhotoList, setEventPhotoList] = useState<EventPhoto[]>([]);
 
   const screenGap = 4;
 
@@ -25,12 +31,21 @@ export const ScrollableScreen = (props: ScrollableScreenProps) => {
     : (document.body.clientWidth - screenGap * (visibleScreenItemNum - 1)) /
       visibleScreenItemNum;
 
-  const screenItemNum = 8;
+  const screenItemNum = eventPhotoList.length;
   const screenWindowWidth =
     screenSize * visibleScreenItemNum + screenGap * (visibleScreenItemNum - 1);
   const screenWrapperWidth =
     screenSize * screenItemNum + screenGap * (screenItemNum - 1);
   const scrollWidth = screenSize + screenGap;
+
+  const refetchEventPhotoList = async () => {
+    const _eventPhotoList = await fetchEventPhoto(photoEvent.id);
+    setEventPhotoList(_eventPhotoList);
+  };
+
+  useEffect(() => {
+    void refetchEventPhotoList();
+  }, []);
 
   useEffect(() => {
     if (!screenWindowRef.current) return;
@@ -39,7 +54,7 @@ export const ScrollableScreen = (props: ScrollableScreenProps) => {
       if (!screenWindowRef.current) return;
       e.preventDefault();
 
-      let delta = e.deltaY / Math.abs(e.deltaY);
+      const delta = e.deltaY / Math.abs(e.deltaY);
       if (delta > 0) {
         setScrollLeftIndex((prev) => {
           console.log(prev);
@@ -58,14 +73,9 @@ export const ScrollableScreen = (props: ScrollableScreenProps) => {
     };
   }, [scrollLeftIndex, scrollWidth]);
 
-  const indexArray: number[] = Array.from(
-    { length: screenItemNum },
-    (_, index) => index + 1
-  );
-
   return (
     <div className={styles.scrollable_screen_field}>
-      <p className={styles.scrollable_screen_title}>{title}</p>
+      <p className={styles.scrollable_screen_title}>{photoEvent.title}</p>
       <div
         className={styles.scrollable_window}
         ref={screenWindowRef}
@@ -77,20 +87,22 @@ export const ScrollableScreen = (props: ScrollableScreenProps) => {
           className={styles.scrollable_screen_wrapper}
           style={{ width: screenWrapperWidth, gap: screenGap }}
         >
-          {indexArray.map((index) => (
-            <div
-              key={index}
-              className={styles.scrollable_screen}
-              style={{ width: screenSize, height: screenSize }}
-            >
-              <Image
-                src={`/scrollable/cat${index}.jpeg`}
-                alt=""
-                layout="fill"
-                objectFit="cover"
-              />
-            </div>
-          ))}
+          {eventPhotoList
+            .sort((a, b) => a.order - b.order)
+            .map((photo) => (
+              <div
+                key={photo.id}
+                className={styles.scrollable_screen}
+                style={{ width: screenSize, height: screenSize }}
+              >
+                <Image
+                  src={photo.imageUrl}
+                  alt=""
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+            ))}
         </div>
       </div>
     </div>

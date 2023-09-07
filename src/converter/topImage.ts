@@ -1,9 +1,10 @@
-import { TopImage } from "@/types/topImage";
 import {
   DocumentData,
   FirestoreDataConverter,
   QueryDocumentSnapshot,
 } from "firebase/firestore";
+
+import { TopImage } from "@/types/topImage";
 
 export const topImageConverter: FirestoreDataConverter<TopImage> = {
   toFirestore: (topImage: TopImage): DocumentData => {
