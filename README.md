@@ -49,6 +49,20 @@ npm run firebase
 * jotai
 * react useStateと似た使用感で使える, 
 
+## 関連リンク
+### デプロイ先(vercel)
+[vercel](https://vercel.com/nanahiryu/mizu-portfolio)にデプロイ済み
+一応本番環境(mainブランチに対応)とpreview環境(developブランチに対応)がある
+今の所db(firestore)やストレージ(firebase storage)は本番環境とpreview環境ともに同じものを使っているので, 表示されるデータは連動している(あんまり良くないので今後変えて行きたい)
+* 本番環境: https://mizu-portfolio.vercel.app
+* preview環境: https://mizu-portfolio-develop.vercel.app
+
+### db等(firebase)
+[firebase console](https://console.firebase.google.com/u/0/project/mizu-portfolio/overview?hl=ja)から現在の本番環境のdb, auth, storageの状態が確認できる
+* [Firestore database](https://console.firebase.google.com/u/0/project/mizu-portfolio/firestore/data/~2FphotoEvent~2FUI2bRIFK6P9G21euUNsT?hl=ja): dbの状態が確認できる
+* [Authentication](https://console.firebase.google.com/u/0/project/mizu-portfolio/authentication/users?hl=ja): ログインユーザの追加、削除、パスワードの変更ができる
+* [Storage](https://console.firebase.google.com/u/0/project/mizu-portfolio/storage/mizu-portfolio.appspot.com/files?hl=ja): アップロードした画像が確認できる
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
