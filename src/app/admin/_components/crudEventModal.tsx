@@ -1,20 +1,24 @@
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 
-import styles from "./createEventModal.module.scss";
+import styles from "./crudEventModal.module.scss";
 
 import { PrimaryButton, SecondaryButton } from "@/components/button";
 import { Input, TextArea } from "@/components/input";
 import ModalBase from "@/components/modal";
-import { createPhotoEvent } from "@/function/photoEvent";
+import { createPhotoEvent, updatePhotoEvent } from "@/function/photoEvent";
+import { PhotoEvent } from "@/types/photoEvent";
 
-interface CreateEventModalProps {
+interface CrudEventModalProps {
   isOpen: boolean;
   onClose: () => void;
-  refetchPhotoEventList: () => void;
+  type: "create" | "edit";
+  // updateの場合はphotoEventを渡す
+  photoEvent?: PhotoEvent;
+  fetchDisplayData: () => void;
 }
 
-const CreateEventModal = (props: CreateEventModalProps) => {
-  const { isOpen, onClose, refetchPhotoEventList } = props;
+const CrudEventModal = (props: CrudEventModalProps) => {
+  const { isOpen, onClose, type, photoEvent, fetchDisplayData } = props;
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
@@ -26,7 +30,20 @@ const CreateEventModal = (props: CreateEventModalProps) => {
       description,
     };
     await createPhotoEvent(_photoEvent);
-    await refetchPhotoEventList();
+    await fetchDisplayData();
+    onClose();
+  };
+
+  const onClickUpdate = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    if (!photoEvent) return;
+    const _photoEvent = {
+      id: photoEvent.id,
+      title,
+      description,
+    };
+    await updatePhotoEvent(_photoEvent);
+    await fetchDisplayData();
     onClose();
   };
 
@@ -36,6 +53,13 @@ const CreateEventModal = (props: CreateEventModalProps) => {
     setDescription("");
   };
 
+  useEffect(() => {
+    if (type === "edit") {
+      setTitle(photoEvent?.title ?? "");
+      setDescription(photoEvent?.description ?? "");
+    }
+  }, [type, photoEvent]);
+
   return (
     <ModalBase
       isOpen={isOpen}
@@ -44,8 +68,15 @@ const CreateEventModal = (props: CreateEventModalProps) => {
         padding: "24px",
       }}
     >
-      <form className={styles.form} onSubmit={(e) => void onClickCreate(e)}>
-        <p className={styles.modal_title}>イベントを追加</p>
+      <form
+        className={styles.form}
+        onSubmit={(e) =>
+          type === "create" ? void onClickCreate(e) : void onClickUpdate(e)
+        }
+      >
+        <p className={styles.modal_title}>
+          {type === "create" ? "イベントを追加" : "イベントを編集"}
+        </p>
         <div className={styles.form_row_wrapper}>
           <p className={styles.form_row_title}>title</p>
           <Input value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -68,4 +99,4 @@ const CreateEventModal = (props: CreateEventModalProps) => {
   );
 };
 
-export default CreateEventModal;
+export default CrudEventModal;

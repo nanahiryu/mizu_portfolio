@@ -41,3 +41,17 @@
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
 }
+
+.circle_delete_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  width: 32px;
+  height: 32px;
+  background-color: $bg_red;
+  &:hover {
+    cursor: pointer;
+    background-color: $bg_lightred;
+  }
+}

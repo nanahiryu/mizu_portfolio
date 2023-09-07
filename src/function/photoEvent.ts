@@ -1,6 +1,7 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDocs,
   query,
@@ -9,6 +10,7 @@ import {
 
 import { photoEventConverter } from "@/converter/photoEvent";
 import { firestore } from "@/firebase/client";
+import { EventPhoto } from "@/types/eventPhoto";
 import { PhotoEvent } from "@/types/photoEvent";
 
 export const fetchPhotoEvent = async (): Promise<PhotoEvent[]> => {
@@ -38,3 +40,13 @@ export const updatePhotoEvent = async (
   );
   await setDoc(_docRef, photoEvent);
 };
+
+export const deletePhotoEvent = async (id: string): Promise<void> => {
+  const _docRef = doc(firestore, "photoEvent", id);
+  await deleteDoc(_docRef);
+};
+
+export const deletePhotoEventCompletely = async (
+  photoEventId: string,
+  eventPhotoList: EventPhoto[]
+): Promise<void> => {};

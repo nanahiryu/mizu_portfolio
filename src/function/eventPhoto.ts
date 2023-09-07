@@ -1,6 +1,3 @@
-import { eventPhotoConverter } from "@/converter/eventPhoto";
-import { firestore } from "@/firebase/client";
-import { EventPhoto } from "@/types/eventPhoto";
 import {
   addDoc,
   collection,
@@ -9,6 +6,12 @@ import {
   getDocs,
   setDoc,
 } from "firebase/firestore";
+
+import { deleteImage } from "./file";
+
+import { eventPhotoConverter } from "@/converter/eventPhoto";
+import { firestore } from "@/firebase/client";
+import { EventPhoto } from "@/types/eventPhoto";
 
 export const fetchEventPhoto = async (
   photoEventId: string
@@ -64,4 +67,13 @@ export const deleteEventPhoto = async (
     eventPhotoId
   );
   await deleteDoc(_docRef);
+};
+
+// 画像ファイルも削除する
+export const deleteEventPhotoAndFile = async (
+  photoEventId: string,
+  eventPhotoId: string
+): Promise<void> => {
+  await deleteEventPhoto(photoEventId, eventPhotoId);
+  await deleteImage(`photoEvent/${photoEventId}/eventPhoto/${eventPhotoId}`);
 };

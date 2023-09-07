@@ -1,3 +1,5 @@
+import { MdClear } from "react-icons/md";
+
 import styles from "./button.module.scss";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -18,6 +20,18 @@ export const SecondaryButton = (props: ButtonProps) => {
   return (
     <button className={styles.secondary_button} {...rest}>
       {children}
+    </button>
+  );
+};
+
+interface NoChildrenButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+
+export const CircleDeleteButton = (props: NoChildrenButtonProps) => {
+  const { ...rest } = props;
+  return (
+    <button className={styles.circle_delete_button} {...rest}>
+      <MdClear className={styles.delete_icon} size={24} color="#fff" />
     </button>
   );
 };

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { MdAdd } from "react-icons/md";
 
-import CreateEventModal from "./_components/createEventModal";
+import CrudEventModal from "./_components/crudEventModal";
 import ScrollableField from "./_components/scrollableField";
 import TopImageField from "./_components/topImageField";
 import styles from "./page.module.scss";
@@ -38,14 +38,19 @@ const Admin = () => {
           </PrimaryButton>
         </div>
         {photoEventList.map((event) => (
-          <ScrollableField key={event.id} photoEvent={event} />
+          <ScrollableField
+            key={event.id}
+            photoEvent={event}
+            refetchPhotoEventList={refetchPhotoEventList}
+          />
         ))}
         <div />
       </div>
-      <CreateEventModal
+      <CrudEventModal
         isOpen={isOpen}
         onClose={onClose}
-        refetchPhotoEventList={refetchPhotoEventList}
+        type="create"
+        fetchDisplayData={refetchPhotoEventList}
       />
     </>
   );
