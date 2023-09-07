@@ -39,6 +39,9 @@
           background-color: $bg_lightred;
         }
       }
+      .image {
+        object-fit: cover;
+      }
     }
   }
 }

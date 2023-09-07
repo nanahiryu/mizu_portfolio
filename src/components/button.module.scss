@@ -12,6 +12,7 @@
   color: $text_white;
   font-size: 12px;
   font-weight: bold;
+  line-height: normal;
   &:hover {
     background: $bg_darkgray;
   }
@@ -32,6 +33,7 @@
   color: $text_black;
   font-size: 12px;
   font-weight: bold;
+  line-height: normal;
   border: 1px solid $border_gray;
   &:hover {
     background: $bg_gray;

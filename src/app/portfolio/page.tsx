@@ -37,7 +37,7 @@ const Home = () => {
           src={topImage?.imageUrl || "/mainScreen/main.jpeg"}
           alt=""
           fill
-          className={styles.main_image}
+          className={styles.image}
         />
       </div>
       {photoEventList.map((event) => (

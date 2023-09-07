@@ -30,6 +30,7 @@ const ScrollableField = (props: ScrollableFieldProps) => {
 
   const refetchEventPhotoList = async () => {
     const _eventPhotoList = await fetchEventPhoto(photoEvent.id);
+    console.log(_eventPhotoList);
     setEventPhotoList(_eventPhotoList);
   };
 
@@ -39,29 +40,41 @@ const ScrollableField = (props: ScrollableFieldProps) => {
     await deleteImage(
       `photoEvent/${photoEvent.id}/eventPhoto/${eventPhoto.id}`
     );
+    // orderを更新
+    const _eventPhotoList = eventPhotoList.filter(
+      (photo) => photo.id !== eventPhoto.id
+    );
+    for (const _eventPhoto of _eventPhotoList) {
+      if (_eventPhoto.order <= eventPhoto.order) continue;
+      _eventPhoto.order -= 1;
+      await updateEventPhoto(photoEvent.id, _eventPhoto);
+    }
     await refetchEventPhotoList();
   };
 
-  const uploadProfileImage = async (image: File | null) => {
-    if (!image) return "";
-    const _eventPhoto = {
-      id: "",
-      title: image.name,
-      description: "",
-      imageUrl: "",
-      order: eventPhotoList.length,
-    };
-    const _id = await createEventPhoto(photoEvent.id, _eventPhoto);
-    const downloadUrl = await uploadImage(
-      `photoEvent/${photoEvent.id}/eventPhoto/${_id}`,
-      image
-    );
-    const _updatedEventPhoto = {
-      ..._eventPhoto,
-      id: _id,
-      imageUrl: downloadUrl,
-    };
-    await updateEventPhoto(photoEvent.id, _updatedEventPhoto);
+  const uploadProfileImageList = async (imageList: FileList | null) => {
+    if (!imageList) return "";
+    for (const [index, image] of Object.entries(Array.from(imageList))) {
+      const _eventPhoto = {
+        id: "",
+        title: image.name,
+        description: "",
+        imageUrl: "",
+        order: eventPhotoList.length + Number(index),
+      };
+      const _id = await createEventPhoto(photoEvent.id, _eventPhoto);
+      const downloadUrl = await uploadImage(
+        `photoEvent/${photoEvent.id}/eventPhoto/${_id}`,
+        image
+      );
+      const _updatedEventPhoto = {
+        ..._eventPhoto,
+        id: _id,
+        imageUrl: downloadUrl,
+      };
+      await updateEventPhoto(photoEvent.id, _updatedEventPhoto);
+    }
+
     await refetchEventPhotoList();
   };
 
@@ -79,7 +92,7 @@ const ScrollableField = (props: ScrollableFieldProps) => {
         }}
       >
         <UploadImageBox
-          onChangeImage={uploadProfileImage}
+          onChangeImageList={uploadProfileImageList}
           width={screenSize}
           height={screenSize}
         />
@@ -104,8 +117,9 @@ const ScrollableField = (props: ScrollableFieldProps) => {
               <Image
                 src={eventPhoto.imageUrl}
                 alt=""
-                layout="fill"
-                objectFit="cover"
+                fill
+                sizes={`${screenSize}px`}
+                className={styles.image}
               />
             </div>
           ))}

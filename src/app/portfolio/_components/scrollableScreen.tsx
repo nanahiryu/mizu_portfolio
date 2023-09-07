@@ -98,8 +98,9 @@ export const ScrollableScreen = (props: ScrollableScreenProps) => {
                 <Image
                   src={photo.imageUrl}
                   alt=""
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  sizes={`${screenSize}px`}
+                  className={styles.image}
                 />
               </div>
             ))}

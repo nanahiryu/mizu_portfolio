@@ -3,14 +3,15 @@ import { MdAddCircleOutline } from "react-icons/md";
 import styles from "./uploadImageBox.module.scss";
 
 interface UploadImageBoxProps {
-  onChangeImage: (file: File | null) => void;
+  onChangeImage?: (file: File | null) => void;
+  onChangeImageList?: (fileList: FileList | null) => void;
   imageUrl?: string;
   width?: number;
   height?: number;
 }
 
 const UploadImageBox = (props: UploadImageBoxProps) => {
-  const { onChangeImage, imageUrl, width, height } = props;
+  const { onChangeImage, onChangeImageList, imageUrl, width, height } = props;
   return (
     <label
       className={styles.input_field_wrapper}
@@ -34,13 +35,25 @@ const UploadImageBox = (props: UploadImageBoxProps) => {
         <MdAddCircleOutline className={styles.icon} size="36px" />
         <p className={styles.icon_note}>ファイルをアップロード</p>
       </div>
-      <input
-        type="file"
-        className={styles.input}
-        onChange={(e) => {
-          onChangeImage(e.target.files ? e.target.files[0] : null);
-        }}
-      />
+      {onChangeImage && (
+        <input
+          type="file"
+          className={styles.input}
+          onChange={(e) => {
+            onChangeImage(e.target.files ? e.target.files[0] : null);
+          }}
+        />
+      )}
+      {onChangeImageList && (
+        <input
+          type="file"
+          className={styles.input}
+          onChange={(e) => {
+            onChangeImageList(e.target.files);
+          }}
+          multiple
+        />
+      )}
     </label>
   );
 };
