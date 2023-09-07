@@ -1,0 +1,35 @@
+@import "@/styles/colors.scss";
+
+.scrollable_screen_field {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 80px 0;
+  .scrollable_screen_title {
+    color: $text_black;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .scrollable_window {
+    overflow: auto;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollable_screen_wrapper {
+      display: flex;
+      .scrollable_screen {
+        position: relative;
+        background-color: $bg_gray;
+        .image {
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}

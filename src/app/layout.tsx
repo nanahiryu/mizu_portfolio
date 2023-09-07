@@ -1,7 +1,8 @@
-import Header from "@/components/header";
+import "@/styles/reset.scss";
 import "@/styles/globals.scss";
-import type { Metadata } from "next";
 import { Amiko } from "next/font/google";
+
+import type { Metadata } from "next";
 
 const amiko = Amiko({ weight: "400", subsets: ["latin"] });
 
@@ -17,10 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={amiko.className}>
-        <Header />
-        <main>{children}</main>
-      </body>
+      <body className={amiko.className}>{children}</body>
     </html>
   );
 }

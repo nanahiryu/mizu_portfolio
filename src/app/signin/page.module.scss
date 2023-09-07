@@ -1,0 +1,36 @@
+@import "@/styles/colors.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border: 1px solid $border_gray;
+    border-radius: 8px;
+    .card_title {
+      font-size: 24px;
+      font-weight: 500;
+    }
+    .form_group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .form_wrapper {
+        .form_row_title {
+          font-size: medium;
+          font-weight: 500;
+        }
+      }
+      .login_button {
+        width: 100%;
+      }
+    }
+  }
+}

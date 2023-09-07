@@ -1,15 +1,15 @@
-import { initializeApp, getApps } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { initializeApp } from "firebase/app";
 
 // 必要な機能をインポート
-import { getAnalytics } from "firebase/analytics";
+import { Auth, connectAuthEmulator, getAuth } from "firebase/auth";
 import {
   Firestore,
   connectFirestoreEmulator,
   getFirestore,
 } from "firebase/firestore";
-import { connectStorageEmulator, getStorage } from "firebase/storage";
-import { Auth, connectAuthEmulator, getAuth } from "firebase/auth";
 import { connectFunctionsEmulator, getFunctions } from "firebase/functions";
+import { connectStorageEmulator, getStorage } from "firebase/storage";
 
 const ENV = process.env.NEXT_PUBLIC_ENV ?? "";
 
@@ -72,4 +72,7 @@ export const storage = initStorage();
 export const functions = initFunctions();
 
 // 他ファイルで使うために機能をエクスポート
-export const analytics = getAnalytics();
+let analytics;
+if (app.name && typeof window !== "undefined") {
+  analytics = getAnalytics(app);
+}
