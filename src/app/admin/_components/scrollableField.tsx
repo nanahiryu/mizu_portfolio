@@ -101,7 +101,12 @@ const ScrollableField = (props: ScrollableFieldProps) => {
   return (
     <>
       <div className={styles.scrollable_field}>
-        <div className={styles.scrollable_title_wrapper}>
+        <div
+          className={styles.scrollable_title_wrapper}
+          style={{
+            width: imageFieldWidth,
+          }}
+        >
           <p className={styles.scrollable_title}>{photoEvent.title}</p>
           <div className={styles.scrollable_edit_buttons_wrapper}>
             <PrimaryButton onClick={onOpen}>編集</PrimaryButton>
