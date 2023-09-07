@@ -7,9 +7,9 @@
   .main_screen_wrapper {
     width: 100%;
     height: 600px;
-    background-color: $bg_gray;
     position: relative;
-    .main_image {
+    background-color: $bg_gray;
+    .image {
       object-fit: cover;
     }
   }

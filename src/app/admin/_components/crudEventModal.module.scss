@@ -1,0 +1,29 @@
+@import "@/styles/colors.scss";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  .modal_title {
+    color: $text_black;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: normal;
+  }
+  .form_row_wrapper {
+    display: flex;
+    flex-direction: column;
+    .form_row_title {
+      color: $text_black;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: normal;
+    }
+  }
+}
+
+.buttons_wrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
