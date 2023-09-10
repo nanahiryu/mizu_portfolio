@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // ルートパスにアクセスしたら、/portfolioにリダイレクトする
   async redirects() {
     return [
       {
