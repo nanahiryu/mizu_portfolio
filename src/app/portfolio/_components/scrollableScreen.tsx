@@ -21,7 +21,6 @@ interface ScrollableScreenProps {
 export const ScrollableScreen = (props: ScrollableScreenProps) => {
   const { photoEvent, visibleScreenItemNum, screenSizePx } = props;
   const screenWindowRef = useRef<HTMLDivElement>(null);
-  const [scrollLeftIndex, setScrollLeftIndex] = useState(0);
   const [eventPhotoList, setEventPhotoList] = useState<EventPhoto[]>([]);
 
   const screenGap = 4;
@@ -51,27 +50,13 @@ export const ScrollableScreen = (props: ScrollableScreenProps) => {
     if (!screenWindowRef.current) return;
 
     screenWindowRef.current.onwheel = (e) => {
+      if (e.deltaX !== 0) return;
       if (!screenWindowRef.current) return;
       e.preventDefault();
-
-      const delta = e.deltaY / Math.abs(e.deltaY);
-      if (delta > 0) {
-        setScrollLeftIndex((prev) => {
-          console.log(prev);
-          if (prev === screenItemNum - visibleScreenItemNum) return prev;
-          return prev + 1;
-        });
-      } else {
-        setScrollLeftIndex((prev) => {
-          console.log(prev);
-          if (prev === 0) return prev;
-          return prev - 1;
-        });
-      }
-
-      screenWindowRef.current!.scrollLeft = scrollLeftIndex * scrollWidth;
+      const delta = (e.deltaY / Math.abs(e.deltaY)) * scrollWidth;
+      screenWindowRef.current.scrollLeft += delta;
     };
-  }, [scrollLeftIndex, scrollWidth]);
+  }, []);
 
   return (
     <div className={styles.scrollable_screen_field}>
