@@ -18,12 +18,14 @@
   .scrollable_window {
     overflow: auto;
     scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
     &::-webkit-scrollbar {
       display: none;
     }
     .scrollable_screen_wrapper {
       display: flex;
       .scrollable_screen {
+        scroll-snap-align: start;
         position: relative;
         background-color: $bg_gray;
         .image {

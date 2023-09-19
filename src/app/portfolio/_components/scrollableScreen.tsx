@@ -21,7 +21,6 @@ interface ScrollableScreenProps {
 export const ScrollableScreen = (props: ScrollableScreenProps) => {
   const { photoEvent, visibleScreenItemNum, screenSizePx } = props;
   const screenWindowRef = useRef<HTMLDivElement>(null);
-  const [scrollLeftIndex, setScrollLeftIndex] = useState(0);
   const [eventPhotoList, setEventPhotoList] = useState<EventPhoto[]>([]);
 
   const screenGap = 4;
@@ -50,28 +49,42 @@ export const ScrollableScreen = (props: ScrollableScreenProps) => {
   useEffect(() => {
     if (!screenWindowRef.current) return;
 
-    screenWindowRef.current.onwheel = (e) => {
-      if (!screenWindowRef.current) return;
-      e.preventDefault();
+    let cooltimeIgnore = false;
+    let ignore = false;
+    let total = 0;
 
-      const delta = e.deltaY / Math.abs(e.deltaY);
-      if (delta > 0) {
-        setScrollLeftIndex((prev) => {
-          console.log(prev);
-          if (prev === screenItemNum - visibleScreenItemNum) return prev;
-          return prev + 1;
-        });
-      } else {
-        setScrollLeftIndex((prev) => {
-          console.log(prev);
-          if (prev === 0) return prev;
-          return prev - 1;
-        });
+    screenWindowRef.current.onwheel = (e: WheelEvent) => {
+      // 縦スクロールの場合, ページのスクロールをさせない
+      if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
+        e.preventDefault();
       }
-
-      screenWindowRef.current!.scrollLeft = scrollLeftIndex * scrollWidth;
+      // クールタイムが終わっていなければreturn
+      if (cooltimeIgnore) return;
+      // deltaYが十分大きければtotalに加算
+      if (Math.abs(e.deltaY) > 20) {
+        total += e.deltaY;
+      }
+      // 一定時間deltaYの増分を加算する
+      if (ignore) return;
+      ignore = true;
+      setTimeout(() => {
+        ignore = false;
+        // 一定時間で溜まったスクロール量が閾値を超えていなければreturn
+        if (Math.abs(total) < 80) return;
+        console.log("scroll: ", total > 0 ? "right" : "left");
+        cooltimeIgnore = true;
+        if (!screenWindowRef.current) return;
+        const delta = (e.deltaY / Math.abs(e.deltaY)) * scrollWidth;
+        screenWindowRef.current.scrollLeft += delta;
+        // 一定時間のクールタイムを設ける
+        setTimeout(() => {
+          cooltimeIgnore = false;
+          console.log("cooltime end");
+        }, 500);
+        total = 0;
+      }, 100);
     };
-  }, [scrollLeftIndex, scrollWidth]);
+  }, []);
 
   return (
     <div className={styles.scrollable_screen_field}>
