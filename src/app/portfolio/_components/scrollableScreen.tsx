@@ -49,12 +49,40 @@ export const ScrollableScreen = (props: ScrollableScreenProps) => {
   useEffect(() => {
     if (!screenWindowRef.current) return;
 
-    screenWindowRef.current.onwheel = (e) => {
-      if (e.deltaX !== 0) return;
-      if (!screenWindowRef.current) return;
-      e.preventDefault();
-      const delta = (e.deltaY / Math.abs(e.deltaY)) * scrollWidth;
-      screenWindowRef.current.scrollLeft += delta;
+    let cooltimeIgnore = false;
+    let ignore = false;
+    let total = 0;
+
+    screenWindowRef.current.onwheel = (e: WheelEvent) => {
+      // 縦スクロールの場合, ページのスクロールをさせない
+      if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
+        e.preventDefault();
+      }
+      // クールタイムが終わっていなければreturn
+      if (cooltimeIgnore) return;
+      // deltaYが十分大きければtotalに加算
+      if (Math.abs(e.deltaY) > 20) {
+        total += e.deltaY;
+      }
+      // 一定時間deltaYの増分を加算する
+      if (ignore) return;
+      ignore = true;
+      setTimeout(() => {
+        ignore = false;
+        // 一定時間で溜まったスクロール量が閾値を超えていなければreturn
+        if (Math.abs(total) < 80) return;
+        console.log("scroll: ", total > 0 ? "right" : "left");
+        cooltimeIgnore = true;
+        if (!screenWindowRef.current) return;
+        const delta = (e.deltaY / Math.abs(e.deltaY)) * scrollWidth;
+        screenWindowRef.current.scrollLeft += delta;
+        // 一定時間のクールタイムを設ける
+        setTimeout(() => {
+          cooltimeIgnore = false;
+          console.log("cooltime end");
+        }, 500);
+        total = 0;
+      }, 100);
     };
   }, []);
 
