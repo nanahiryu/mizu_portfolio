@@ -34,13 +34,18 @@ const Signin = () => {
           <div className={styles.form_group}>
             <div className={styles.form_wrapper}>
               <p className={styles.form_row_title}>email</p>
-              <Input value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+              />
             </div>
             <div className={styles.form_wrapper}>
               <p className={styles.form_row_title}>password</p>
               <Input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                type="password"
               />
             </div>
             <PrimaryButton additionalClassName={styles.login_button}>

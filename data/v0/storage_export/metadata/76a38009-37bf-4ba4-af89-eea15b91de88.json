@@ -1,0 +1,19 @@
+{
+  "name": "topImage/main.jpeg",
+  "bucket": "mizu-portfolio.appspot.com",
+  "metageneration": 1,
+  "generation": 1694337845577,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "6538e554-258e-405b-9c25-615da70b87b2"
+  ],
+  "etag": "cEvu3cds7zkyYkxwme/TAvygb44",
+  "customMetadata": {},
+  "timeCreated": "2023-09-10T09:24:05.577Z",
+  "updated": "2023-09-10T09:24:05.577Z",
+  "size": 194732,
+  "md5Hash": "Qi+ZFXWUKNfR8bNEKGc8KQ==",
+  "crc32c": "1275820531"
+}
